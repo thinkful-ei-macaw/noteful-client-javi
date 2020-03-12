@@ -5,6 +5,7 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
+import AddFolder from '../AddFolder/addFolder'
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './App.css';
@@ -36,6 +37,13 @@ class App extends Component {
             });
     }
 
+    handleAddFolder = (folder) => {
+        this.setState({
+            folders : [...this.state.folders, folder]
+        });
+    };
+
+
     handleDeleteNote = noteId => {
         this.setState({
             notes: this.state.notes.filter(note => note.id !== noteId)
@@ -54,7 +62,7 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageNav} />
-                <Route path="/add-folder" component={NotePageNav} />
+                <Route path="/add-folder" component={AddFolder} />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
@@ -80,7 +88,8 @@ class App extends Component {
         const value = {
             notes: this.state.notes,
             folders: this.state.folders,
-            deleteNote: this.handleDeleteNote
+            deleteNote: this.handleDeleteNote,
+            addFolder: this.handleAddFolder,
         };
         return (
             <ApiContext.Provider value={value}>
