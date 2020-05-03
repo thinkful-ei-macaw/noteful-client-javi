@@ -1,6 +1,7 @@
 import React from 'react'
 import ApiContext from '../ApiContext'
 import { Route } from 'react-router-dom';
+import propTypes from 'prop-types'
 
 export default class AddFolder extends React.Component {
 
@@ -54,5 +55,9 @@ export default class AddFolder extends React.Component {
       </form>
     )
   }
+}
+
+AddFolder.propTypes = {
+  history: propTypes.object.isRequired,
 }
 

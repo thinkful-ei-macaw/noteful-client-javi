@@ -1,6 +1,7 @@
 import React from 'react'
 import ApiContext from '../ApiContext'
-import { Route } from 'react-router-dom';
+import propTypes from 'prop-types'
+
 
 export default class AddNote extends React.Component {
 
@@ -14,9 +15,9 @@ export default class AddNote extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const name = this.state.folderName;
+    const name = this.state.NoteName;
     
-    fetch('http://localhost:9090/folders', 
+    fetch('http://localhost:9090/notes', 
     {
       method: 'POST',
       headers: {
@@ -29,7 +30,7 @@ export default class AddNote extends React.Component {
     })
   .then(response => response.json())
   .then((responseJson) => {
-      this.context.AddNote(responseJson)
+      this.context.addNote(responseJson)
       this.props.history.push('/');
     })
   }
@@ -42,7 +43,7 @@ export default class AddNote extends React.Component {
         <label>
           New note name:
         </label>
-    <input type="input" className="nameInput" onChange={
+    <input type="input" className="noteNameInput" onChange={
       (e) => this.setState({
         NoteName: e.target.value
         
@@ -50,9 +51,13 @@ export default class AddNote extends React.Component {
       }>
 
       </input>
-      <button type="submit" className="submitName">Submit Name</button>
+      <button type="submit" className="submitNoteName">Submit Name</button>
       </form>
     )
   }
+}
+
+AddNote.propTypes = {
+  history: propTypes.object.isRequired,
 }
 

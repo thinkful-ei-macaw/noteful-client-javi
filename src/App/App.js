@@ -9,7 +9,9 @@ import AddFolder from '../AddFolder/addFolder'
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './App.css';
-import AddNote from '../AddFolder/AddNote/AddNote';
+import AddNote from '../AddNote/AddNote';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
+
 
 class App extends Component {
     state = {
@@ -52,8 +54,9 @@ class App extends Component {
     };
 
     handleAddNote = (note) => {
+        console.log(note);
         this.setState({
-            notes : [...this.state.NoteName, note]
+            notes : [...this.state.notes, note]
         });
     }; 
 
@@ -101,6 +104,7 @@ class App extends Component {
         };
         return (
             <ApiContext.Provider value={value}>
+                <ErrorBoundary>
                 <div className="App">
                     <nav className="App__nav">{this.renderNavRoutes()}</nav>
                     <header className="App__header">
@@ -111,6 +115,7 @@ class App extends Component {
                     </header>
                     <main className="App__main">{this.renderMainRoutes()}</main>
                 </div>
+                </ErrorBoundary>
             </ApiContext.Provider>
         );
     }
