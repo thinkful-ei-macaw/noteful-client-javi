@@ -43,7 +43,7 @@ export default class AddNote extends React.Component {
         <label>
           New note name:
         </label>
-    <input type="input" className="noteNameInput" onChange={
+    <input type="input" required className="noteNameInput" onChange={
       (e) => this.setState({
         NoteName: e.target.value
         

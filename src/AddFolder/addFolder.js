@@ -31,7 +31,7 @@ export default class AddFolder extends React.Component {
   .then(response => response.json())
   .then((responseJson) => {
       this.context.addFolder(responseJson)
-      this.props.history.push('/');
+      this.props.history.push('/folders');
     })
   }
 
