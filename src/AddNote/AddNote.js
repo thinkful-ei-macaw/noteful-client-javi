@@ -1,7 +1,7 @@
 import React from 'react'
 import ApiContext from '../ApiContext'
 import propTypes from 'prop-types'
-import config from './config'
+import config from '../config'
 
 
 export default class AddNote extends React.Component {
@@ -48,9 +48,9 @@ export default class AddNote extends React.Component {
         <label>
           New note name:
         </label>
-    <input type="input" required className="noteNameInput" onChange={
+    <input type="input" required className= "noteNameInput" onChange={
       (e) => this.setState({
-        NoteName: e.target['noteNameInput'].value,
+        noteName: e.target.value,
       })
       }>
         
@@ -60,9 +60,11 @@ export default class AddNote extends React.Component {
               Content
             </label>
             <textarea id='note-content' name='note-content' required onChange={(e) => this.setState({
-              noteContent: e.target['note-content'].value})} />
+              noteContent: e.target.value})} />
           </div>
+          Folders:
       <select id='note-folder-select' name='note-folder-id'>
+        
               <option value={null}>...</option>
               {folders.map(folder =>
                 <option key={folder.id} value={folder.id}>
