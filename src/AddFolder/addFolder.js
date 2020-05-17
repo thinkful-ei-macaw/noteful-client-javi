@@ -2,6 +2,7 @@ import React from 'react'
 import ApiContext from '../ApiContext'
 import { Route } from 'react-router-dom';
 import propTypes from 'prop-types'
+import config from '../config';
 
 export default class AddFolder extends React.Component {
 
@@ -17,21 +18,21 @@ export default class AddFolder extends React.Component {
 
     const name = this.state.folderName;
     
-    fetch('http://localhost:9090/folders', 
-    {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: name,   
+    fetch(`${config.API_ENDPOINT}/folder`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,   
+        })
       })
-    })
   .then(response => response.json())
   .then((responseJson) => {
       this.context.addFolder(responseJson)
-      this.props.history.push('/folders');
+      this.props.history.push(`/folder/${responseJson.id}`);
     })
   }
 
@@ -43,7 +44,7 @@ export default class AddFolder extends React.Component {
         <label>
           New folder name:
         </label>
-    <input type="input" className="nameInput" onChange={
+    <input type="input" className="nameInput" required onChange={
       (e) => this.setState({
         folderName: e.target.value
         

@@ -1,12 +1,16 @@
 import React from 'react'
 import ApiContext from '../ApiContext'
 import propTypes from 'prop-types'
+import config from './config'
 
 
 export default class AddNote extends React.Component {
 
     state = {
-      NoteName: ''
+      noteName: '',
+      noteContent: ''
+      
+
   }
 
 
@@ -15,9 +19,9 @@ export default class AddNote extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const name = this.state.NoteName;
+    const newNote = this.state;
     
-    fetch('http://localhost:9090/notes', 
+    fetch(`${config.API_ENDPOINT}/notes`, 
     {
       method: 'POST',
       headers: {
@@ -25,7 +29,7 @@ export default class AddNote extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: name,   
+        newNote: newNote,   
       })
     })
   .then(response => response.json())
@@ -38,6 +42,7 @@ export default class AddNote extends React.Component {
 
 
   render() {
+    const { folders=[] } = this.context
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -45,12 +50,26 @@ export default class AddNote extends React.Component {
         </label>
     <input type="input" required className="noteNameInput" onChange={
       (e) => this.setState({
-        NoteName: e.target.value
-        
+        NoteName: e.target['noteNameInput'].value,
       })
       }>
-
+        
       </input>
+      <div className='form-field'>
+            <label htmlFor='note-content-input'>
+              Content
+            </label>
+            <textarea id='note-content' name='note-content' required onChange={(e) => this.setState({
+              noteContent: e.target['note-content'].value})} />
+          </div>
+      <select id='note-folder-select' name='note-folder-id'>
+              <option value={null}>...</option>
+              {folders.map(folder =>
+                <option key={folder.id} value={folder.id}>
+                  {folder.name}
+                </option>
+              )}
+            </select>
       <button type="submit" className="submitNoteName">Submit Name</button>
       </form>
     )
