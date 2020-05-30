@@ -1,3 +1,3 @@
 export default {
-  API_ENDPOINT: 'http://localhost:9090'
+  API_ENDPOINT: 'https://agile-plateau-10862.herokuapp.com/api'
 }
